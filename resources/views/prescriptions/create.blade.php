@@ -21,28 +21,6 @@
                     </p>
                     @enderror
                 </div>
-                {{-- <div class="mb-6 pt-3 rounded bg-gray-200"> <!-- contact num -->
-                    <label for="time" class="block text-gray-700 text-sm font-bold 
-                        mb-2 ml-3">Time</label>
-                        <input type="time" name="time" class="bg-gray-200 rounded w-full text-gray-700
-                        focus:outline-none border-b-4 border-gray-400 px-3" autocomplete="off" value={{old('time')}}>
-                    @error('time')
-                    <p class="text-red-500 text-xs p-1">
-                        {{$message}}
-                    </p>
-                    @enderror
-                </div>
-                <div class="mb-6 pt-3 rounded bg-gray-200"> <!-- Date -->
-                    <label for="date" class="block text-gray-700 text-sm font-bold 
-                        mb-2 ml-3">Date</label>
-                        <input type="date" name="date" class="bg-gray-200 rounded w-full text-gray-700
-                        focus:outline-none border-b-4 border-gray-400 px-3" autocomplete="off" value={{old('date')}}>
-                    @error('date')
-                    <p class="text-red-500 text-xs p-1">
-                        {{$message}}
-                    </p>
-                    @enderror
-                </div> --}}
                 <div class="mb-6 pt-3 rounded bg-gray-200"> <!-- Prescriptions -->
                     <label for="filename" class="block text-gray-700 text-sm font-bold 
                         mb-2 ml-3">File</label>

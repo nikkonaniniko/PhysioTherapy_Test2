@@ -37,19 +37,23 @@
                 @foreach ($prescriptions as $prescription)
                 <tr class="bg-gray-800 border-b text-white">
                     <td class="py-4 px-6">
-                        {{ $prescription->updated_at }}
+                        {{ $prescription->created_at }}
                     </td>
                     <td class="py-4 px-6">
                         {{ $prescription->last_name }}
                     </td>
                     <td class="py-4 px-6">
-                        <a href="#" class="bg-sky-600 text-white px-4 py-1 rounded">View</a>
+                        <a href="{{url('admin/prescriptions/view',$prescription->id)}}" class="bg-sky-600 text-white px-4 py-1 rounded">View</a>
                     </td>
                     <td class="py-4 px-6">
-                        <a href="#" class="bg-sky-600 text-white px-4 py-1 rounded">Download</a>
+                        <a href="{{url('admin/prescriptions/download',$prescription->filename)}}" class="bg-sky-600 text-white px-4 py-1 rounded">Download</a>
+
                     </td>
                     <td class="py-4 px-6">
-                        <a href="#" class="bg-sky-600 text-white px-4 py-1 rounded">Delete</a>
+                        <form action="/admin/prescriptions/{{$prescription->id}}" method="POST">
+                            @method('delete')
+                            @csrf
+                            <button class="bg-red-600 text-white px-4 py-1 rounded" type="submit">Delete</button>
                     </td>
                 </tr>
                 @endforeach
@@ -61,3 +65,8 @@
     </div>
 </section>
 @include('partials.footer')
+
+
+{{-- <form action="/admin/prescriptions/{{$prescription->filename}}" method="GET">
+    @csrf
+    <button class="bg-sky-600 text-white px-4 py-1 rounded" type="submit">Download</button> --}}

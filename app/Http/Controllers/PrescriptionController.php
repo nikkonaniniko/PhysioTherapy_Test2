@@ -6,6 +6,7 @@ use App\Models\Patients;
 use Illuminate\Http\Request;
 use App\Models\Prescriptions;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Stroage;
 use Illuminate\Validation\Rule;
 use Intervention\Image\Facades\Image;
 
@@ -19,8 +20,7 @@ class PrescriptionController extends Controller
             ->select('patients.last_name', 'prescriptions.*')
             ->simplePaginate(10);
             // ->get();
-            
-        // $data = array('prescriptions' => DB::table('prescriptions')->orderBy('created_at','desc')->simplePaginate(10));
+        
         return view('prescriptions.index', ['prescriptions' => $data]);
     }
 
@@ -29,10 +29,6 @@ class PrescriptionController extends Controller
     }
 
     public function store(Request $request){
-        // $data = DB::table('patients')
-        //     ->join('prescriptions', 'patients.id', '=', 'prescriptions.patients_id')
-        //     ->select('patients.last_name', 'prescriptions.*')
-        //     ->get();
 
         $validated = $request->validate([
             // "time" => ['required'],
@@ -57,6 +53,15 @@ class PrescriptionController extends Controller
 
         return redirect('/admin/prescriptions')->with('message', 'Prescription Added Successfully');;
     }
+
+    public function view($id){
+        $data = Prescriptions::findOrFail($id);
+        return view('prescriptions.show', ['prescription'=>$data]);
+    }
+
+    public function download(Request $request,$filename){
+        return response()->download(public_path('storage/patients/'.$filename));
+    }
         
 
     public function update(Request $request, Prescriptions $prescription){
@@ -80,5 +85,10 @@ class PrescriptionController extends Controller
         $prescription->update($validated);
 
         return back()->with('message', 'Prescription Added');
+    }
+
+    public function destroy(Prescriptions $prescription){
+        $prescription->delete();
+        return redirect('/admin/prescriptions')->with('message', 'Prescription Deleted Successfully');
     }
 }

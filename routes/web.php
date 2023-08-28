@@ -56,5 +56,8 @@ Route::controller(PrescriptionController::class)->group(function() {
     Route::get('/admin/prescriptions', 'index')->middleware('auth');
     Route::get('/admin/prescriptions/add', 'create');
     Route::post('/admin/prescriptions/add', 'store');
+    Route::get('admin/prescriptions/view/{id}', 'view');
+    Route::get('admin/prescriptions/download/{filename}', 'download');
     Route::put('/admin/patients/prescriptions/{patient}', 'update');
+    Route::delete('/admin/prescriptions/{prescription}', 'destroy');
 });
