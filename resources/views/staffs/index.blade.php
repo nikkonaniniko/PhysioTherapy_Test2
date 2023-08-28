@@ -15,23 +15,26 @@
         <table class="mt-5 mx-auto text-sm text-left text-gray-500">
             <thead class="text-xs text gray-700 uppercase bg-gray-50">
                 <tr>
-                    <th scope="col" class="py-3 px-6">
+                    <th scope="col" class="py-3 px-6 text-center">
                         
                     </th>
-                    <th scope="col" class="py-3 px-6">
-                        First Name
+                    <th scope="col" class="py-3 px-6 text-center">
+                        Name
                     </th>
-                    <th scope="col" class="py-3 px-6">
-                        Last Name
-                    </th>
-                    <th scope="col" class="py-3 px-6">
+                    <th scope="col" class="py-3 px-6 text-center">
                         Designation
                     </th>
-                    <th scope="col" class="py-3 px-6">
+                    <th scope="col" class="py-3 px-6 text-center">
+                        Expertise
+                    </th>
+                    <th scope="col" class="py-3 px-6 text-center">
                         Contact Number
                     </th>
-                    <th scope="col" class="py-3 px-6">
-
+                    <th scope="col" class="py-3 px-6 text-center">
+                        Emergency Contact Number
+                    </th>
+                    <th class="py-3 px-6 text-center" colspan="2">
+                        Actions
                     </th>
                 </tr>
             </thead>
@@ -45,20 +48,30 @@
                     <td>
                         <img src="{{ $staff->staff_photo ? asset("storage/staff/thumbnail/".$staff->staff_photo) : $default_profile }}" >
                     </td>
-                    <td class="py-4 px-6">
-                        {{ $staff->first_name }}
+                    <td class="py-4 px-6 text-center">
+                        {{ $staff->first_name }} {{ $staff->last_name }}
                     </td>
-                    <td class="py-4 px-6">
-                        {{ $staff->last_name }}
-                    </td>
-                    <td class="py-4 px-6">
+                    <td class="py-4 px-6 text-center">
                         {{ $staff->designation }}
                     </td>
-                    <td class="py-4 px-6">
+                    <td class="py-4 px-6 text-center">
+                        {{ $staff->expertise }}
+                    </td>
+                    <td class="py-4 px-6 text-center">
                         {{ $staff->contact_num }}
                     </td>
+                    <td class="py-4 px-6 text-center">
+                        {{ $staff->emer_contact_num }}
+                    </td>
                     <td class="py-4 px-6">
-                        <a href="/admin/staff/{{$staff->id}}" class="bg-sky-600 text-white px-4 py-1 rounded">View</a>
+                        <a href="/admin/staff/{{$staff->id}}" class="bg-sky-600 hover:bg-sky-700 text-white px-4 py-1 rounded">View</a>
+                    </td>
+                    <td class="py-4 px-6">
+                        <form action="/admin/staff/{{$staff->id}}" method="POST">
+                            @method('delete')
+                            @csrf
+                        <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-1 rounded">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach
