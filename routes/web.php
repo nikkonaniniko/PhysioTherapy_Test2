@@ -45,7 +45,7 @@ Route::controller(StaffController::class)->group(function() {
 
 Route::controller(PatientController::class)->group(function() {
     Route::get('/admin/patients', 'index')->middleware('auth');
-    Route::get('/admin/patients/add', 'create')->middleware('auth'); 
+    Route::get('/admin/patients/add', 'create')->middleware('auth');
     Route::post('/admin/patients/add', 'store'); 
     Route::get('/admin/patients/{patient}', 'show')->middleware('auth');
     Route::put('/admin/patients/{patient}', 'update')->middleware('auth');
@@ -55,9 +55,11 @@ Route::controller(PatientController::class)->group(function() {
 Route::controller(PrescriptionController::class)->group(function() {
     Route::get('/admin/prescriptions', 'index')->middleware('auth');
     Route::get('/admin/prescriptions/add', 'create');
+    Route::get('/admin/prescriptions/addFromPatient', 'createFromPatient');
     Route::post('/admin/prescriptions/add', 'store');
-    Route::get('admin/prescriptions/view/{id}', 'view');
-    Route::get('admin/prescriptions/download/{filename}', 'download');
+    Route::get('/admin/prescriptions/view/{id}', 'view');
+    Route::get('/admin/prescriptions/viewFromPatient/{id}', 'viewFromPatient');
+    Route::get('/admin/prescriptions/download/{filename}', 'download');
     Route::put('/admin/patients/prescriptions/{patient}', 'update');
     Route::delete('/admin/prescriptions/{prescription}', 'destroy');
 });

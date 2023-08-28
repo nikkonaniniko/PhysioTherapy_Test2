@@ -10,8 +10,6 @@
     <section class="mt-10">
         <form id="mainForm" action="/admin/patients/{{$patient->id}}" method="POST" class="flex flex-col" enctype="multipart/form-data">  @csrf @method('PUT') </form>
         
-        <form id="presForm" action="/admin/prescriptions/add" method="POST" enctype="multipart/form-data" > @csrf </form>
-           
             <div class="flex justify-center items-center my-4">
                 @php
                     $default_profile = "https://avatars.dicebear.com/api/initials/".$patient->first_name."-".$patient->last_name.".svg"
@@ -58,10 +56,12 @@
                         <ul>
                             <li>
                                 {{ $prescription['filename']}}
+                                <a href="{{url('admin/prescriptions/viewFromPatient',$prescription->id)}}" class="bg-sky-600 hover:bg-sky-700 text-white px-4 py-1 rounded">View</a>
                             </li>
                         </ul>
-                        <input type="file" name="filename" class="bg-gray-200 rounded w-full text-gray-700
-                        focus:outline-none border-b-4 border-gray-400 px-3" form="presForm" autocomplete="off">
+                
+                        {{-- <input type="file" name="filename" class="bg-gray-200 rounded w-full text-gray-700
+                        focus:outline-none border-b-4 border-gray-400 px-3" form="presForm" autocomplete="off"> --}}
                     @error('prescriptions')
                     <p class="text-red-500 text-xs p-1">
                         {{$message}}
@@ -71,12 +71,13 @@
                 @empty
                     <p>No Prescriptions</p>
                 @endforelse
+                <a href="{{url('/admin/prescriptions/addFromPatient')}}"> <button type="button" class="px-5 bg-blue-600 hover:bg-blue-700 text-white font-bold
+                    py-2 rounded shadow-lg hover:shadow-xl transition
+                    duration-200">Create</button></a>
 
-                <button class="px-5 bg-blue-600 hover:bg-blue-700 text-white font-bold
-            py-2 rounded shadow-lg hover:shadow-xl transition
-            duration-200" form="presForm" type="submit">Add Prescription</button>
+            <a href="{{url('/admin/prescriptions')}}"> <button type="button" class="bg-sky-500 hover:bg-sky-700 text-white py-1 px-2 rounded float-right">View All Prescriptions</button></a>
                 
-                <div class="mb-6 pt-3 rounded bg-gray-200"> <!-- Diagnosis -->
+                <div class="mt-5 mb-6 pt-3 rounded bg-gray-200"> <!-- Diagnosis -->
                     <label for="diagnosis" class="block text-gray-700 text-sm font-bold 
                         mb-2 ml-3">Diagnosis</label>
                         <input type="text" name="diagnosis" class="bg-gray-200 rounded w-full text-gray-700

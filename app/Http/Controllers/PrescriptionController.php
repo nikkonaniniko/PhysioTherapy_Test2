@@ -28,6 +28,14 @@ class PrescriptionController extends Controller
         return view('prescriptions.create')->with('title', 'Add New');
     }
 
+    public function createFromPatient(){
+        // $prescriptions = Prescriptions::with('patients')->get();
+        // $patients = Patients::with('prescriptions')->get();
+
+        // return view('prescriptions.createFromPatient')->with('prescriptions', 'patients');
+        return view('prescriptions.createFromPatient')->with('title', 'Add New');
+    }
+
     public function store(Request $request){
 
         $validated = $request->validate([
@@ -59,6 +67,11 @@ class PrescriptionController extends Controller
         return view('prescriptions.show', ['prescription'=>$data]);
     }
 
+    public function viewFromPatient($id){
+        $data = Prescriptions::findOrFail($id);
+        return view('prescriptions.viewFromPatient', ['prescription'=>$data]);
+    }
+
     public function download(Request $request,$filename){
         return response()->download(public_path('storage/patients/'.$filename));
     }
@@ -84,7 +97,7 @@ class PrescriptionController extends Controller
 
         $prescription->update($validated);
 
-        return back()->with('message', 'Prescription Added');
+        return back()->with('message', 'Prescription Updated');
     }
 
     public function destroy(Prescriptions $prescription){

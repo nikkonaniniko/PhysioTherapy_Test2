@@ -22,7 +22,7 @@ class PatientController extends Controller
 
     public function create(){
         return view('patients.create')->with('title', 'Add New');
-    }
+    } 
 
     public function store(Request $request){
         $validated = $request->validate([
@@ -31,24 +31,6 @@ class PatientController extends Controller
             "contact_num" => ['required', 'phone:PH,US'],
             "diagnosis" => [],
         ], ['first_name.regex' => 'Invalid first name. Please follow the format: "First Name"', 'last_name.regex' => 'Invalid last name. Please follow the format: "Last Name"', 'contact_num.required' => 'The contact number field is required', 'emer_contact_num.required' => 'The emergency contact number field is required']);
-
-        // if($request->hasFile('prescriptions')){
-        //     $request->validate([
-        //         "prescriptions" => '|mimes:jpeg,png,jpg,zip,pdf,docx|max:10000'
-        //     ]);
-
-        //     $filenameWithExtension = $request->file("prescriptions");
-
-        //     $filename = pathinfo($filenameWithExtension, PATHINFO_FILENAME);
-
-        //     $extension = $request->file("prescriptions")->getClientOriginalExtension();
-
-        //     $filenameToStore = $filename .'_'.time().'.'.$extension;
-
-        //     $request->file('prescriptions')->storeAs('public/patients', $filenameToStore);
-
-        //     $validated['prescriptions'] = $filenameToStore;
-        // }
 
         Patients::create($validated);
 
