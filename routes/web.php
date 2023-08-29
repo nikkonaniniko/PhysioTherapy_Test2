@@ -1,12 +1,15 @@
 <?php
 
+use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\PrescriptionController;
+use App\Http\Controllers\SupplyController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\UserController;
 use App\Models\User;
+use Database\Factories\EquipmentsFactory;
 use Illuminate\Auth;
 use Illuminate\Support\Facades\Artisan;
 
@@ -62,4 +65,22 @@ Route::controller(PrescriptionController::class)->group(function() {
     Route::get('/admin/prescriptions/download/{filename}', 'download');
     Route::put('/admin/patients/prescriptions/{patient}', 'update');
     Route::delete('/admin/prescriptions/{prescription}', 'destroy');
+});
+
+Route::controller(EquipmentController::class)->group(function() {
+    Route::get('/admin/equipment', 'index')->middleware('auth');
+    Route::get('/admin/equipment/add', 'create')->middleware('auth');
+    Route::post('/admin/equipment/add', 'store');
+    Route::get('/admin/equipment/{equipment}', 'show')->middleware('auth');
+    Route::put('/admin/equipment/{equipment}', 'update')->middleware('auth');
+    Route::delete('/admin/equipment/{equipment}', 'destroy');
+});
+
+Route::controller(SupplyController::class)->group(function() {
+    Route::get('/admin/supplies', 'index')->middleware('auth');
+    Route::get('/admin/supplies/add', 'create')->middleware('auth');
+    Route::post('/admin/supplies/add', 'store');
+    Route::get('/admin/supplies/{supply}', 'show')->middleware('auth');
+    Route::put('/admin/supplies/{supply}', 'update')->middleware('auth');
+    Route::delete('/admin/supplies/{supply}', 'destroy');
 });

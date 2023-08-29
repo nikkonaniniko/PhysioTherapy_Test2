@@ -1,0 +1,77 @@
+@include('partials.header')
+@php
+    $array = array('title' => 'Leonardo Physical Therapy Rehabilitation Clinic');
+@endphp
+<x-nav :data="$array"/>
+
+<header class="max-w-lg mx-auto mt-5">
+    <a href="#">
+        <h1 class="text-4xl font-bold text-white text-center">Equipment List</h1>
+    </a>
+    <div class=""><a href="{{url('/admin/equipment/add')}}"> <button type="button" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded float-right">Create</button></a>
+</header>
+<section class="mt-10">
+    <div class="overflow-x-auto relative">
+        <table class=" mt-5 mx-auto text-sm text-left text-gray-500">
+            <thead class="text-xs text gray-700 uppercase bg-gray-50">
+                <tr>
+                    <th scope="col" class="py-3 px-6 text-center">
+                        Name
+                    </th>
+                    <th scope="col" class="py-3 px-6 text-center">
+                        Category
+                    </th>
+                    <th scope="col" class="py-3 px-6 text-center">
+                        Quantity
+                    </th>
+                    <th scope="col" class="py-3 px-6 text-center">
+                        Expiration
+                    </th>
+                    <th class="py-3 px-6 text-center" colspan="2">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach ($equipments as $equipment)
+                <tr class="bg-gray-800 border-b text-white">
+                    <td class="py-4 px-6 text-center">
+                        {{ $equipment->name }}
+                    </td>
+                    <td class="py-4 px-6 text-center">
+                        {{ $equipment->category }}
+                    </td>
+                    <td class="py-4 px-6 text-center">
+                        {{ $equipment->quantity }}
+                    </td>
+                    <td class="py-4 px-6 text-center">
+                        {{ $equipment->expiration }}
+                    </td>
+                    <td class="py-4 px-6">
+                        <a href="/admin/equipment/{{$equipment->id}}" class="bg-sky-600 text-white px-4 py-1 rounded">Edit</a>
+
+                    </td>
+                    <td class="py-4 px-6">
+                        <form action="/admin/equipment/{{$equipment->id}}" method="POST">
+                            @method('delete')
+                            @csrf
+                            <button class="bg-red-600 text-white px-4 py-1 rounded" type="submit">Delete</button>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <div class="mx-auto max-w-lg pt-6 p4">
+        {{ $equipments->links() }} 
+        </div>
+    </div>
+</section>
+@include('partials.footer')
+
+
+{{-- <form action="/admin/prescriptions/{{$prescription->filename}}" method="GET">
+    @csrf
+    <button class="bg-sky-600 text-white px-4 py-1 rounded" type="submit">Download</button> --}}
+
+    {{-- {{url('admin/equipment/download',$equipment->filename)}} --}}
